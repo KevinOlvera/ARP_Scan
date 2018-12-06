@@ -255,7 +255,7 @@ void BD_MySQL_Save_Data(unsigned char *trama)
 		strcat(ip, aux_ip);
 	}
 
-	sprintf(consult, "insert into PC values('%s', '%s');", ip, mac);
+	sprintf(consult, "insert into PC values(NULL, '%s', '%s');", ip, mac);
 	
 	if (mysql_query(connection, consult))
 	{
@@ -275,14 +275,14 @@ void BD_MySQL_Show_Data()
 	{
 		result = mysql_use_result(connection);
 
-		printf("\n\n\n+---------------+-------------------+\n");
-		printf("|  IP_Address\t|    MAC_Address    |\n");
-		printf("+---------------+-------------------+\n");
+		printf("\n\n\n+-------+---------------+-------------------+\n");
+		printf("| PC_ID |  IP_Address\t|    MAC_Address    |\n");
+		printf("+-------+---------------+-------------------+\n");
 
 		while(row = mysql_fetch_row(result))
-			printf("| %s\t| %s |\n", row[0], row[1]);
+			printf("| %s\t| %s\t| %s |\n", row[0], row[1], row[2]);
 		
-		printf("+---------------+-------------------+\n");
+		printf("+-------+---------------+-------------------+\n");
 	}
 
 	if(!mysql_eof(result))
