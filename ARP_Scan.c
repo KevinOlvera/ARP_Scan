@@ -1,38 +1,34 @@
-#include "ARP.c"
+#include "comnet.c"
 
 int main(int argc, char const *argv[])
 {
-	int packet_socket, indice;
+    int packet_socket = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 
 	BD_MySQL_Connect();
 	BD_MySQL_Reset_Data();
-    
-	packet_socket = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 
-	if(packet_socket == -1)
-	{
-		perror("Error al abrir el socket");
-		exit(1);
-	}
-	else
-	{
-		perror("Exito al abrir el socket");
-		indice = obtenerDatos(packet_socket);
-        
-		int index;
+    if(packet_socket == -1) {
+        perror("Error al abrir el socket.");
+        exit(1);
+    } else {
+        perror("Exito al abrir el socket.");
+        int index = getData(packet_socket);
+        printf("El indice es %d\n", index);
 
-		for(index = 1;index < 255;index++)
+		for(int i = 0; i < 255; i++)
 		{
-			estructuraTrama(tramaEnv, index);
-			enviaTrama(packet_socket, indice, tramaEnv);
-			//imprimeTrama(tramaEnv, 42);
-			recibeTrama(packet_socket, tramaRec);
+			getDestinationIP(i);
+			ARPframe(frame_s, my_MAC, my_IP, dest_MAC, dest_IP);
+			//printFrame(frame_s, 42);
+			sendFrame(packet_socket, index, frame_s, 42);
+			receiveFrame(packet_socket, frame_r);
 		}
-	}
+    }
 
 	BD_MySQL_Show_Data();
 	BD_MySQL_Close();
-	
-	close(packet_socket);
-	return 1;
+
+    close(packet_socket);
+
+    return 0;
 }
