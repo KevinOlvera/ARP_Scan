@@ -135,7 +135,7 @@ int getData(int sd)
 void ARPframe(unsigned char *trama, unsigned char *s_MAC, unsigned char *s_IP, unsigned char *d_MAC, unsigned char *d_IP)
 {
 	memcpy(trama+0, bro_MAC, 6);
-	memcpy(trama+6, d_MAC, 6);
+	memcpy(trama+6, s_MAC, 6);
 	memcpy(trama+12, ethertype_ARP, 2);
 	memcpy(trama+14, HW, 2);
 	memcpy(trama+16, PR, 2);
@@ -162,7 +162,6 @@ void sendFrame(int sd, int index, unsigned char *frame, int frame_size)
 	struct sockaddr_ll interface;
 	
 	memset(&interface, 0x00, sizeof(interface));
-	printf("\n");
 	interface.sll_family = AF_PACKET;
 	interface.sll_protocol = htons(ETH_P_ALL);
 	interface.sll_ifindex = index;
@@ -262,7 +261,7 @@ void receiveFrame(int sd, unsigned char *frame)
 	}
 
 	if( flag == 0 ){
-		perror("Error al recibir");
+		//perror("Error al recibir");
 		//printf("Elapsed time: %ld milliseconds\n", mtime);
 	}
 
@@ -275,9 +274,9 @@ void stringToIP(char *ip_s)
 
 void getDestinationIP(int index)
 {
-    dest_IP[0] = source_IP[0];
-	dest_IP[1] = source_IP[1];
-	dest_IP[2] = source_IP[2];
+    dest_IP[0] = my_IP[0];
+	dest_IP[1] = my_IP[1];
+	dest_IP[2] = my_IP[2];
 
 	int i;
 	char ip[14] = "";
@@ -358,8 +357,8 @@ void BD_MySQL_Save_Data(unsigned char *frame)
 		fprintf(stderr, "%s\n", mysql_error(connection));
 		exit(1);
 	}
-	else
-		printf("\nSe agrego a %s - %s", mac, ip);
+	//else
+		//printf("\nSe agrego a %s - %s", mac, ip);
 
 }
 
@@ -371,7 +370,7 @@ void BD_MySQL_Show_Data()
 	{
 		result = mysql_use_result(connection);
 
-		printf("\n\n\n+-------+---------------+-------------------+\n");
+		printf("\n+-------+---------------+-------------------+\n");
 		printf("| PC_ID |  IP_Address\t|    MAC_Address    |\n");
 		printf("+-------+---------------+-------------------+\n");
 
