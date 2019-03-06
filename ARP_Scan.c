@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
         int index = getData(packet_socket);
         printf("El indice es %d\n", index);
 
-		for(int i = 0; i < 255; i++)
+		for(int i = 1; i < 255; i++)
 		{
 			getDestinationIP(i);
 			ARPframe(frame_s, my_MAC, my_IP, dest_MAC, dest_IP);

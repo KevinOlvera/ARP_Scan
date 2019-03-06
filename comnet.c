@@ -128,7 +128,6 @@ int getData(int sd)
 
 	printf("\n");
 
-
 	return index;
 }
 
@@ -225,7 +224,7 @@ void receiveFrame(int sd, unsigned char *frame)
 	gettimeofday(&start, NULL);
 	mtime = 0;
     
-    while(mtime < 1000){
+    while(mtime < 200){
 		
 		size = recvfrom(sd, frame, 1514, MSG_DONTWAIT, NULL, 0);
 
