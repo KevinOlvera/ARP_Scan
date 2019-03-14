@@ -237,7 +237,7 @@ void receiveFrame(int sd, unsigned char *frame)
 			if( !memcmp(frame+0, my_MAC, 6) && !memcmp(frame+12, ethertype_ARP, 2) && !memcmp(frame+20, epcode_ARP_replay, 2) && !memcmp(frame+28, dest_IP, 4) )
 			{
 				//printFrame(frame, size);
-				printARPinfo(frame, size);
+				//printARPinfo(frame, size);
 				BD_MySQL_Save_Data(frame);
 				flag = 1;
 			}
@@ -273,7 +273,7 @@ void stringToIP(char *ip_s)
 
 void getDestinationIP(int index)
 {
-    dest_IP[0] = my_IP[0];
+  dest_IP[0] = my_IP[0];
 	dest_IP[1] = my_IP[1];
 	dest_IP[2] = my_IP[2];
 
