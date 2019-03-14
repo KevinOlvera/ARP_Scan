@@ -56,8 +56,8 @@ MYSQL_ROW row;
 char consult[100] = "";
 
 int getData(int sd);
-void ARPframe(unsigned char *trama, unsigned char *s_MAC, unsigned char *s_IP, unsigned char *d_MAC, unsigned char *d_IP);
-void frame(unsigned char *trama);
+void ARPframe(unsigned char *frame, unsigned char *s_MAC, unsigned char *s_IP, unsigned char *d_MAC, unsigned char *d_IP);
+void frame(unsigned char *frame);
 void sendFrame(int sd, int index, unsigned char *frame, int frame_size);
 void printFrame(unsigned char *frame, int size);
 void printARPinfo(unsigned char *frame, int size);

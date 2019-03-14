@@ -131,28 +131,28 @@ int getData(int sd)
 	return index;
 }
 
-void ARPframe(unsigned char *trama, unsigned char *s_MAC, unsigned char *s_IP, unsigned char *d_MAC, unsigned char *d_IP)
+void ARPframe(unsigned char *frame, unsigned char *s_MAC, unsigned char *s_IP, unsigned char *d_MAC, unsigned char *d_IP)
 {
-	memcpy(trama+0, bro_MAC, 6);
-	memcpy(trama+6, s_MAC, 6);
-	memcpy(trama+12, ethertype_ARP, 2);
-	memcpy(trama+14, HW, 2);
-	memcpy(trama+16, PR, 2);
-	memcpy(trama+18, LDH, 1);
-	memcpy(trama+19, LDP, 1);
-	memcpy(trama+20, epcode_ARP_request, 2);
-	memcpy(trama+22, s_MAC, 6);
-	memcpy(trama+28, s_IP, 4);
-	memcpy(trama+32, d_MAC, 6);
-	memcpy(trama+38, d_IP, 4);
+	memcpy(frame+0, bro_MAC, 6);
+	memcpy(frame+6, s_MAC, 6);
+	memcpy(frame+12, ethertype_ARP, 2);
+	memcpy(frame+14, HW, 2);
+	memcpy(frame+16, PR, 2);
+	memcpy(frame+18, LDH, 1);
+	memcpy(frame+19, LDP, 1);
+	memcpy(frame+20, epcode_ARP_request, 2);
+	memcpy(frame+22, s_MAC, 6);
+	memcpy(frame+28, s_IP, 4);
+	memcpy(frame+32, d_MAC, 6);
+	memcpy(frame+38, d_IP, 4);
 }
 
-void frame(unsigned char *trama)
+void frame(unsigned char *frame)
 {
-	memcpy(trama+0, alameda_MAC_WLAN, 6);
-	memcpy(trama+6, my_MAC, 6);
-	memcpy(trama+12, ethertype_ethernet, 2);
-	memcpy(trama+14, "Quintanilla Network", 40);
+	memcpy(frame+0, alameda_MAC_WLAN, 6);
+	memcpy(frame+6, my_MAC, 6);
+	memcpy(frame+12, ethertype_ethernet, 2);
+	memcpy(frame+14, "Quintanilla Network", 40);
 }
 
 void sendFrame(int sd, int index, unsigned char *frame, int frame_size)
